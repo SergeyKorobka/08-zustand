@@ -1,13 +1,6 @@
 import type { Note, NoteTag } from '@/types/note';
 import axios from 'axios';
 
-const notesApi = axios.create({
-  baseURL: 'https://notehub-public.goit.study/api',
-  headers: {
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
-  },
-});
-
 interface FetchNotesResponse {
   notes: Note[];
   totalPages: number;
@@ -18,6 +11,19 @@ interface fetchNotesParams {
   page?: number;
   tag?: string;
 }
+
+interface NotePayload {
+  title: string;
+  content?: string;
+  tag: NoteTag;
+}
+
+const notesApi = axios.create({
+  baseURL: 'https://notehub-public.goit.study/api',
+  headers: {
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
+  },
+});
 
 export async function fetchNotes({
   search = '',
@@ -40,12 +46,6 @@ export async function fetchNoteById(noteId: string) {
   const { data } = await notesApi.get<Note>(`/notes/${noteId}`);
 
   return data;
-}
-
-interface NotePayload {
-  title: string;
-  content?: string;
-  tag: NoteTag;
 }
 
 export async function createNote(payload: NotePayload) {

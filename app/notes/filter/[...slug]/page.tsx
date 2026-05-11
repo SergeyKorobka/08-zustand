@@ -5,10 +5,33 @@ import {
 } from '@tanstack/react-query';
 import NotesClient from './Notes.client';
 import { fetchNotes } from '@/lib/api';
-import { NoteTag } from '@/types/note';
+import type { NoteTag } from '@/types/note';
 
 type Props = {
   params: Promise<{ slug: NoteTag[] }>;
+};
+
+export const generateMetadata = async ({ params }: Props) => {
+  const { slug } = await params;
+
+  return {
+    title: `${slug[0]} notes`,
+    description: `Browse and manage your notes tagged with ${slug[0]}.`,
+    openGraph: {
+      title: `${slug[0]} notes`,
+      type: 'website',
+      description: `Browse and manage your notes tagged with ${slug[0]}.`,
+      siteName: 'NoteHub',
+      images: [
+        {
+          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+          width: 1200,
+          height: 630,
+          alt: 'NoteHub preview image',
+        },
+      ],
+    },
+  };
 };
 
 export default async function Notes({ params }: Props) {

@@ -11,9 +11,8 @@ import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
 import Loader from '@/components/Loader/Loader';
 import NoContent from '@/components/NoContent/NoContent';
 import NoteList from '@/components/NoteList/NoteList';
-import Modal from '@/components/Modal/Modal';
-import NoteForm from '@/components/NoteForm/NoteForm';
-import { NoteTag } from '@/types/note';
+import type { NoteTag } from '@/types/note';
+import Link from 'next/link';
 
 interface NotesClientProps {
   tag: NoteTag | undefined;
@@ -22,7 +21,6 @@ interface NotesClientProps {
 export default function NotesClient({ tag }: NotesClientProps) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
-  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const { data, isSuccess, isError, isLoading } = useQuery({
     queryKey: ['notes', page, search, tag],
@@ -50,21 +48,15 @@ export default function NotesClient({ tag }: NotesClientProps) {
             setPage={setPage}
           />
         )}
-        <button className={css.button} onClick={() => setIsOpenModal(true)}>
+        <Link href="/notes/action/create" className={css.button}>
           Create note +
-        </button>
+        </Link>
       </header>
 
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
       {isNoContent && <NoContent />}
       {hasData && <NoteList notes={data.notes} />}
-
-      {isOpenModal && (
-        <Modal onClose={() => setIsOpenModal(false)}>
-          <NoteForm closeModal={() => setIsOpenModal(false)} />
-        </Modal>
-      )}
     </div>
   );
 }
