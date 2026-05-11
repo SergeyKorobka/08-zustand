@@ -1,0 +1,21 @@
+.input {
+  flex: 1;
+  max-width: 240px;
+  padding: 6px 12px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.loadingText {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 8px);
+  transform: translateY(-50%);
+  color: #495057;
+  font-size: 14px;
+}
