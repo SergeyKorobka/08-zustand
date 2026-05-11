@@ -25,6 +25,7 @@ export const generateMetadata = async ({
       type: 'website',
       description: note.content.slice(0, 150) + '...',
       siteName: 'NoteHub',
+      url: `https://08-zustand-tau-sage.vercel.app/notes/${id}`,
       images: [
         {
           url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',

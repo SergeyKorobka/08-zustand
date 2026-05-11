@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     type: 'website',
     description: 'Create, organize, and manage your notes in one place.',
     siteName: 'NoteHub',
+    url: 'https://08-zustand-tau-sage.vercel.app',
     images: [
       {
         url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
